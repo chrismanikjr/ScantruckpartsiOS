@@ -1,0 +1,533 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 51;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		375C57CD573C24351BF82248 /* Pods_Scantruckparts_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF515D00233E643CF1127314 /* Pods_Scantruckparts_iOS.framework */; };
+		CB0A71A724B4611700A3ADA5 /* CartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0A71A524B4611700A3ADA5 /* CartCell.swift */; };
+		CB0A71A824B4611700A3ADA5 /* CartCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB0A71A624B4611700A3ADA5 /* CartCell.xib */; };
+		CB0A71AA24B468DD00A3ADA5 /* CartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0A71A924B468DD00A3ADA5 /* CartViewController.swift */; };
+		CB0A71AC24B47A4400A3ADA5 /* Cart.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0A71AB24B47A4400A3ADA5 /* Cart.swift */; };
+		CB211BA224B4DACF00EA824C /* CartProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB211BA124B4DACF00EA824C /* CartProduct.swift */; };
+		CB211BA624B4F1EE00EA824C /* OrderHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB211BA524B4F1EE00EA824C /* OrderHistoryViewController.swift */; };
+		CB211BA924B4F37000EA824C /* OrderHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB211BA724B4F37000EA824C /* OrderHistoryCell.swift */; };
+		CB211BAA24B4F37000EA824C /* OrderHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB211BA824B4F37000EA824C /* OrderHistoryCell.xib */; };
+		CB73027924B569B000FF11F0 /* Orders.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB73027824B569B000FF11F0 /* Orders.swift */; };
+		CB73027D24B5CED100FF11F0 /* OrderDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB73027C24B5CED100FF11F0 /* OrderDetailViewController.swift */; };
+		CB73028124B5EDBA00FF11F0 /* OrderDetailData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB73028024B5EDBA00FF11F0 /* OrderDetailData.swift */; };
+		CB7F255924A392E1008B7DE5 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7F255824A392E1008B7DE5 /* MainTabBarViewController.swift */; };
+		CB7F255B24A39B1E008B7DE5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CB7F255A24A39B1E008B7DE5 /* GoogleService-Info.plist */; };
+		CB7F255F24A39C9D008B7DE5 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7F255E24A39C9D008B7DE5 /* RegisterViewController.swift */; };
+		CB7F256124A3B7D3008B7DE5 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7F256024A3B7D3008B7DE5 /* AccountViewController.swift */; };
+		CB9A26A424992922009C605F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9A26A324992922009C605F /* AppDelegate.swift */; };
+		CB9A26A624992922009C605F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9A26A524992922009C605F /* SceneDelegate.swift */; };
+		CB9A26A824992922009C605F /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9A26A724992922009C605F /* HomeViewController.swift */; };
+		CB9A26AB24992922009C605F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB9A26A924992922009C605F /* Main.storyboard */; };
+		CB9A26AD24992928009C605F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB9A26AC24992928009C605F /* Assets.xcassets */; };
+		CB9A26B024992928009C605F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB9A26AE24992928009C605F /* LaunchScreen.storyboard */; };
+		CBB50FA824B6DE87003C73D1 /* ProductDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB50FA724B6DE87003C73D1 /* ProductDetailController.swift */; };
+		CBB50FAA24B70E7D003C73D1 /* SearchResultController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB50FA924B70E7D003C73D1 /* SearchResultController.swift */; };
+		CBCA3F8C24A4BB120025A5F3 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCA3F8B24A4BB120025A5F3 /* Utilities.swift */; };
+		CBCC9D31249B72B10067E5E7 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCC9D30249B72B10067E5E7 /* LoginViewController.swift */; };
+		CBDC3AEB24ACEA0E009F79E2 /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDC3AEA24ACEA0E009F79E2 /* K.swift */; };
+		CBDEF4BE24B64D1900221650 /* ProductListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDEF4BC24B64D1900221650 /* ProductListCell.swift */; };
+		CBDEF4BF24B64D1900221650 /* ProductListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBDEF4BD24B64D1900221650 /* ProductListCell.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		76BE5F1665594EBB756385C3 /* Pods-Scantruckparts-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Scantruckparts-iOS.release.xcconfig"; path = "Target Support Files/Pods-Scantruckparts-iOS/Pods-Scantruckparts-iOS.release.xcconfig"; sourceTree = "<group>"; };
+		CB0A71A524B4611700A3ADA5 /* CartCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartCell.swift; sourceTree = "<group>"; };
+		CB0A71A624B4611700A3ADA5 /* CartCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CartCell.xib; sourceTree = "<group>"; };
+		CB0A71A924B468DD00A3ADA5 /* CartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewController.swift; sourceTree = "<group>"; };
+		CB0A71AB24B47A4400A3ADA5 /* Cart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cart.swift; sourceTree = "<group>"; };
+		CB211BA124B4DACF00EA824C /* CartProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartProduct.swift; sourceTree = "<group>"; };
+		CB211BA524B4F1EE00EA824C /* OrderHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderHistoryViewController.swift; sourceTree = "<group>"; };
+		CB211BA724B4F37000EA824C /* OrderHistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderHistoryCell.swift; sourceTree = "<group>"; };
+		CB211BA824B4F37000EA824C /* OrderHistoryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrderHistoryCell.xib; sourceTree = "<group>"; };
+		CB73027824B569B000FF11F0 /* Orders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Orders.swift; sourceTree = "<group>"; };
+		CB73027C24B5CED100FF11F0 /* OrderDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailViewController.swift; sourceTree = "<group>"; };
+		CB73028024B5EDBA00FF11F0 /* OrderDetailData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetailData.swift; sourceTree = "<group>"; };
+		CB7F255824A392E1008B7DE5 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
+		CB7F255A24A39B1E008B7DE5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		CB7F255E24A39C9D008B7DE5 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		CB7F256024A3B7D3008B7DE5 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
+		CB9A26A024992922009C605F /* Scantruckparts-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Scantruckparts-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB9A26A324992922009C605F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		CB9A26A524992922009C605F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		CB9A26A724992922009C605F /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		CB9A26AA24992922009C605F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		CB9A26AC24992928009C605F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CB9A26AF24992928009C605F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		CB9A26B124992928009C605F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CBB50FA724B6DE87003C73D1 /* ProductDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailController.swift; sourceTree = "<group>"; };
+		CBB50FA924B70E7D003C73D1 /* SearchResultController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultController.swift; sourceTree = "<group>"; };
+		CBCA3F8B24A4BB120025A5F3 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		CBCC9D30249B72B10067E5E7 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		CBDC3AEA24ACEA0E009F79E2 /* K.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = K.swift; sourceTree = "<group>"; };
+		CBDEF4BC24B64D1900221650 /* ProductListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListCell.swift; sourceTree = "<group>"; };
+		CBDEF4BD24B64D1900221650 /* ProductListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductListCell.xib; sourceTree = "<group>"; };
+		D698B6A691F37F57DD862936 /* Pods-Scantruckparts-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Scantruckparts-iOS.debug.xcconfig"; path = "Target Support Files/Pods-Scantruckparts-iOS/Pods-Scantruckparts-iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		EF515D00233E643CF1127314 /* Pods_Scantruckparts_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Scantruckparts_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CB9A269D24992922009C605F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				375C57CD573C24351BF82248 /* Pods_Scantruckparts_iOS.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		48BFDA2F92F4EC1A00BBC0CC /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D698B6A691F37F57DD862936 /* Pods-Scantruckparts-iOS.debug.xcconfig */,
+				76BE5F1665594EBB756385C3 /* Pods-Scantruckparts-iOS.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		5AFE05BD7D32691FDEFCD6A4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EF515D00233E643CF1127314 /* Pods_Scantruckparts_iOS.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CB9A269724992922009C605F = {
+			isa = PBXGroup;
+			children = (
+				CB9A26A224992922009C605F /* Scantruckparts-iOS */,
+				CB9A26A124992922009C605F /* Products */,
+				48BFDA2F92F4EC1A00BBC0CC /* Pods */,
+				5AFE05BD7D32691FDEFCD6A4 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		CB9A26A124992922009C605F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CB9A26A024992922009C605F /* Scantruckparts-iOS.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CB9A26A224992922009C605F /* Scantruckparts-iOS */ = {
+			isa = PBXGroup;
+			children = (
+				CB9A26A324992922009C605F /* AppDelegate.swift */,
+				CB9A26A524992922009C605F /* SceneDelegate.swift */,
+				CB9A26BA24993268009C605F /* Model */,
+				CB9A26B924993258009C605F /* Controller */,
+				CB9A26B82499324F009C605F /* View */,
+				CBCA3F8A24A4BAFE0025A5F3 /* Helper */,
+				CB9A26AC24992928009C605F /* Assets.xcassets */,
+				CB9A26AE24992928009C605F /* LaunchScreen.storyboard */,
+				CB9A26B124992928009C605F /* Info.plist */,
+				CB7F255A24A39B1E008B7DE5 /* GoogleService-Info.plist */,
+			);
+			path = "Scantruckparts-iOS";
+			sourceTree = "<group>";
+		};
+		CB9A26B82499324F009C605F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CB9A26A924992922009C605F /* Main.storyboard */,
+				CB0A71A524B4611700A3ADA5 /* CartCell.swift */,
+				CB0A71A624B4611700A3ADA5 /* CartCell.xib */,
+				CB211BA724B4F37000EA824C /* OrderHistoryCell.swift */,
+				CB211BA824B4F37000EA824C /* OrderHistoryCell.xib */,
+				CBDEF4BC24B64D1900221650 /* ProductListCell.swift */,
+				CBDEF4BD24B64D1900221650 /* ProductListCell.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CB9A26B924993258009C605F /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				CB9A26A724992922009C605F /* HomeViewController.swift */,
+				CBB50FA724B6DE87003C73D1 /* ProductDetailController.swift */,
+				CBCC9D30249B72B10067E5E7 /* LoginViewController.swift */,
+				CB7F255824A392E1008B7DE5 /* MainTabBarViewController.swift */,
+				CB7F255E24A39C9D008B7DE5 /* RegisterViewController.swift */,
+				CB7F256024A3B7D3008B7DE5 /* AccountViewController.swift */,
+				CB0A71A924B468DD00A3ADA5 /* CartViewController.swift */,
+				CB211BA524B4F1EE00EA824C /* OrderHistoryViewController.swift */,
+				CB73027C24B5CED100FF11F0 /* OrderDetailViewController.swift */,
+				CBB50FA924B70E7D003C73D1 /* SearchResultController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		CB9A26BA24993268009C605F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CB0A71AB24B47A4400A3ADA5 /* Cart.swift */,
+				CB211BA124B4DACF00EA824C /* CartProduct.swift */,
+				CB73027824B569B000FF11F0 /* Orders.swift */,
+				CB73028024B5EDBA00FF11F0 /* OrderDetailData.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		CBCA3F8A24A4BAFE0025A5F3 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				CBCA3F8B24A4BB120025A5F3 /* Utilities.swift */,
+				CBDC3AEA24ACEA0E009F79E2 /* K.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CB9A269F24992922009C605F /* Scantruckparts-iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CB9A26B424992928009C605F /* Build configuration list for PBXNativeTarget "Scantruckparts-iOS" */;
+			buildPhases = (
+				AC2FA35D6C8C80BACF1CE5E2 /* [CP] Check Pods Manifest.lock */,
+				CB9A269C24992922009C605F /* Sources */,
+				CB9A269D24992922009C605F /* Frameworks */,
+				CB9A269E24992922009C605F /* Resources */,
+				56B5EE54AA851E39BCE516BD /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Scantruckparts-iOS";
+			productName = "Scantruckparts-iOS";
+			productReference = CB9A26A024992922009C605F /* Scantruckparts-iOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CB9A269824992922009C605F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1150;
+				LastUpgradeCheck = 1150;
+				ORGANIZATIONNAME = scantruck;
+				TargetAttributes = {
+					CB9A269F24992922009C605F = {
+						CreatedOnToolsVersion = 11.5;
+					};
+				};
+			};
+			buildConfigurationList = CB9A269B24992922009C605F /* Build configuration list for PBXProject "Scantruckparts-iOS" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = CB9A269724992922009C605F;
+			productRefGroup = CB9A26A124992922009C605F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CB9A269F24992922009C605F /* Scantruckparts-iOS */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CB9A269E24992922009C605F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CB9A26B024992928009C605F /* LaunchScreen.storyboard in Resources */,
+				CB211BAA24B4F37000EA824C /* OrderHistoryCell.xib in Resources */,
+				CB0A71A824B4611700A3ADA5 /* CartCell.xib in Resources */,
+				CB7F255B24A39B1E008B7DE5 /* GoogleService-Info.plist in Resources */,
+				CB9A26AD24992928009C605F /* Assets.xcassets in Resources */,
+				CB9A26AB24992922009C605F /* Main.storyboard in Resources */,
+				CBDEF4BF24B64D1900221650 /* ProductListCell.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		56B5EE54AA851E39BCE516BD /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Scantruckparts-iOS/Pods-Scantruckparts-iOS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Scantruckparts-iOS/Pods-Scantruckparts-iOS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Scantruckparts-iOS/Pods-Scantruckparts-iOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AC2FA35D6C8C80BACF1CE5E2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Scantruckparts-iOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CB9A269C24992922009C605F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CBB50FAA24B70E7D003C73D1 /* SearchResultController.swift in Sources */,
+				CBDC3AEB24ACEA0E009F79E2 /* K.swift in Sources */,
+				CB0A71A724B4611700A3ADA5 /* CartCell.swift in Sources */,
+				CB211BA624B4F1EE00EA824C /* OrderHistoryViewController.swift in Sources */,
+				CB7F255924A392E1008B7DE5 /* MainTabBarViewController.swift in Sources */,
+				CB9A26A824992922009C605F /* HomeViewController.swift in Sources */,
+				CB7F256124A3B7D3008B7DE5 /* AccountViewController.swift in Sources */,
+				CB73027924B569B000FF11F0 /* Orders.swift in Sources */,
+				CB9A26A424992922009C605F /* AppDelegate.swift in Sources */,
+				CBB50FA824B6DE87003C73D1 /* ProductDetailController.swift in Sources */,
+				CB211BA924B4F37000EA824C /* OrderHistoryCell.swift in Sources */,
+				CB73027D24B5CED100FF11F0 /* OrderDetailViewController.swift in Sources */,
+				CB211BA224B4DACF00EA824C /* CartProduct.swift in Sources */,
+				CB7F255F24A39C9D008B7DE5 /* RegisterViewController.swift in Sources */,
+				CB0A71AC24B47A4400A3ADA5 /* Cart.swift in Sources */,
+				CB0A71AA24B468DD00A3ADA5 /* CartViewController.swift in Sources */,
+				CBDEF4BE24B64D1900221650 /* ProductListCell.swift in Sources */,
+				CBCC9D31249B72B10067E5E7 /* LoginViewController.swift in Sources */,
+				CB73028124B5EDBA00FF11F0 /* OrderDetailData.swift in Sources */,
+				CBCA3F8C24A4BB120025A5F3 /* Utilities.swift in Sources */,
+				CB9A26A624992922009C605F /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		CB9A26A924992922009C605F /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CB9A26AA24992922009C605F /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		CB9A26AE24992928009C605F /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CB9A26AF24992928009C605F /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		CB9A26B224992928009C605F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		CB9A26B324992928009C605F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		CB9A26B524992928009C605F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D698B6A691F37F57DD862936 /* Pods-Scantruckparts-iOS.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9FTW8UD8K7;
+				INFOPLIST_FILE = "Scantruckparts-iOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.scantruck.Scantruckparts-iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		CB9A26B624992928009C605F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 76BE5F1665594EBB756385C3 /* Pods-Scantruckparts-iOS.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9FTW8UD8K7;
+				INFOPLIST_FILE = "Scantruckparts-iOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.scantruck.Scantruckparts-iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CB9A269B24992922009C605F /* Build configuration list for PBXProject "Scantruckparts-iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CB9A26B224992928009C605F /* Debug */,
+				CB9A26B324992928009C605F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CB9A26B424992928009C605F /* Build configuration list for PBXNativeTarget "Scantruckparts-iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CB9A26B524992928009C605F /* Debug */,
+				CB9A26B624992928009C605F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CB9A269824992922009C605F /* Project object */;
+}
