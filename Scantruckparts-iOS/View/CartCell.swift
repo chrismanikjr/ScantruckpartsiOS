@@ -8,6 +8,12 @@
 
 import UIKit
 
+protocol CartCollectionProtocol {
+    func deleteData(index: Int)
+    
+    func updateQty(index: Int, qty: Int)
+}
+
 class CartCell: UITableViewCell {
 
     @IBOutlet weak var productImage: UIImageView!
@@ -17,8 +23,12 @@ class CartCell: UITableViewCell {
     @IBOutlet weak var quantityLabel: UILabel!
     @IBOutlet weak var stepper: UIStepper!
     
-    var quantityValue = 0.0
+    var delegate: CartCollectionProtocol?
+    var index: IndexPath?
     
+    
+    var quantityValue = 0.0
+    var priceValue = 0.0 
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -30,13 +40,14 @@ class CartCell: UITableViewCell {
     }
     
     @IBAction func deletePressed(_ sender: UIButton) {
+        delegate?.deleteData(index: index!.row)
     }
    
     @IBAction func quantityStepper(_ sender: UIStepper) {
         quantityValue = sender.value
-        print(quantityValue)
+        let quantity = Int(quantityValue)
         quantityLabel.text = String(format: "%.0f", quantityValue)
-        
+        delegate?.updateQty(index: index!.row, qty: quantity)
     }
     
 }

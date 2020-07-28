@@ -24,9 +24,8 @@ class OrderDetailViewController: UIViewController {
     @IBOutlet weak var totalAmountLabel: UILabel!
     
     
-    var index : Int?
-    
     var sku = ""
+    var index: Int?
     
     let db = Firestore.firestore()
     let currentUser = Auth.auth().currentUser
@@ -42,12 +41,17 @@ class OrderDetailViewController: UIViewController {
     
     var message = ""
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableProduct.dataSource = self
+        tableProduct.delegate = self
         tableProduct.register(UINib(nibName: K.cellNibProductList, bundle: nil), forCellReuseIdentifier: K.cellIdentifierProductList)
         loadOrder()
+        
+        
     }
     
     
@@ -121,8 +125,6 @@ class OrderDetailViewController: UIViewController {
                             self.telephoneLabel.text = telep
                             self.addressLabel.text = address
                             self.tableProduct.reloadData()
-                            
-                            
                         }
                         
                         //                        let newShipping = OrderDetailData.Shipping(name: name, telephone_number: telep, address_name: address, city: city, region: region, country: country, zip: zip, tracking: self.trackingData)
@@ -147,11 +149,17 @@ class OrderDetailViewController: UIViewController {
         }
         
     }
-    //    func updateUI(){
-    //        DispatchQueue.main.async {
-    //            self.orderID.text = orderDetail["order_id"]
-    //        }
-    //    }
+    
+    //MARK: - Download and load image from Firebase Storage
+      
+      func loadImage(with imageChild: String) -> StorageReference{
+          let storage = Storage.storage()
+          let storageRef = storage.reference()
+          let ref = storageRef.child(imageChild)
+          
+          return ref
+
+      }
     
     //MARK: - Message Alert Controller
     func alertMessage(with message: String){
@@ -160,9 +168,15 @@ class OrderDetailViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == K.orderDeProduct{
+            let destinationVC = segue.destination as! ProductDetailController
+            destinationVC.skuNumber = sku
+        }
+    }
     
 }
-extension OrderDetailViewController: UITableViewDataSource{
+extension OrderDetailViewController: UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return productData.count
     }
@@ -174,7 +188,18 @@ extension OrderDetailViewController: UITableViewDataSource{
         cell.quantityLabel.text = String("Qty: \(productData[indexPath.row].quantity)")
         let totalAmount = Double(productData[indexPath.row].quantity) * productData[indexPath.row].price
         cell.totalHarga.text = String("SGD \(totalAmount)")
+        
+        let imageRef = loadImage(with: productData[indexPath.row].image)
+        cell.productImage.sd_setImage(with: imageRef)
+        
+        
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        sku = productData[indexPath.row].sku
+        self.performSegue(withIdentifier: K.orderDeProduct, sender: self)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     
@@ -186,5 +211,5 @@ extension Date{
         dateFormatter.dateFormat = format
         return dateFormatter.string(from: self)
     }
-    
+     
 }

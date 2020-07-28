@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -23,23 +23,23 @@
                                 <rect key="frame" x="0.0" y="0.0" width="341" height="66.5"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wabco" translatesAutoresizingMaskIntoConstraints="NO" id="7ib-rU-zuB">
-                                        <rect key="frame" x="0.0" y="6" width="55" height="55"/>
+                                        <rect key="frame" x="0.0" y="3.5" width="60" height="60"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="55" id="IwS-mn-bAx"/>
-                                            <constraint firstAttribute="width" constant="55" id="Mgw-gU-ODc"/>
+                                            <constraint firstAttribute="height" constant="60" id="IwS-mn-bAx"/>
+                                            <constraint firstAttribute="width" constant="60" id="Mgw-gU-ODc"/>
                                         </constraints>
                                     </imageView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="5I0-Af-bXL">
-                                        <rect key="frame" x="75" y="8" width="266" height="51"/>
+                                        <rect key="frame" x="80" y="8" width="261" height="51"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cbe-sa-ag8">
-                                                <rect key="frame" x="0.0" y="0.0" width="266" height="20.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="261" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UFW-eI-Grs">
-                                                <rect key="frame" x="0.0" y="30.5" width="266" height="20.5"/>
+                                                <rect key="frame" x="0.0" y="30.5" width="261" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>

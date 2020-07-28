@@ -8,5 +8,6 @@ target 'Scantruckparts-iOS' do
   # Pods for Scantruckparts-iOS
     pod 'Firebase/Auth'
     pod 'Firebase/Firestore'
+    pod 'FirebaseUI/Storage'
 
 end

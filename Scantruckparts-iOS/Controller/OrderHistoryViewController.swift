@@ -12,6 +12,8 @@ import Firebase
 class OrderHistoryViewController: UIViewController{
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var emptyImage: UIImageView!
+    
     let db = Firestore.firestore()
     let currentUser = Auth.auth().currentUser
     
@@ -27,6 +29,9 @@ class OrderHistoryViewController: UIViewController{
         tableView.delegate = self
         tableView.register(UINib(nibName: K.cellNibOrderHistory, bundle: nil), forCellReuseIdentifier: K.cellIdentifierOrderHistory)
         loadOrder()
+        
+        emptyImage.isHidden = true
+        
     }
     
     func loadOrder(){
@@ -37,21 +42,31 @@ class OrderHistoryViewController: UIViewController{
         }
         let orderHistoryRef = db.collection(K.FStore.orderCollection).document(userUID)
         orderHistoryRef.addSnapshotListener { (documentSnapshot, error) in
-            if let document = documentSnapshot{
-                if let orderData = document.data()?[K.FStore.Orders.orderHistory] as? [[String:Any]]{
-                    for data in orderData{
-                        if let createdDate : Timestamp = data[K.FStore.Orders.createdON] as? Timestamp, let orderId = data[K.FStore.Orders.orderID] as? String, let statusOrder = data[K.FStore.Orders.statusOrder] as? String, let totalAmount = data[K.FStore.Orders.totalAmount] as? Double{
-                            let created = createdDate.dateValue()
-                            
-                            let newOrderHistory = Orders.OrderHistory(order_id: orderId, created_on: created, status_order: statusOrder, total_amount: totalAmount)
-                            self.orderHistory.append(newOrderHistory)
+            if error == nil{
+                if documentSnapshot!.exists{
+                    self.tableView.isHidden = false
+                    self.emptyImage.isHidden = true
+                    
+                    let document = documentSnapshot
+                    if let orderData = document!.data()?[K.FStore.Orders.orderHistory] as? [[String:Any]]{
+                        for data in orderData{
+                            if let createdDate : Timestamp = data[K.FStore.Orders.createdON] as? Timestamp, let orderId = data[K.FStore.Orders.orderID] as? String, let statusOrder = data[K.FStore.Orders.statusOrder] as? String, let totalAmount = data[K.FStore.Orders.totalAmount] as? Double{
+                                let created = createdDate.dateValue()
+                                
+                                let newOrderHistory = Orders.OrderHistory(order_id: orderId, created_on: created, status_order: statusOrder, total_amount: totalAmount)
+                                self.orderHistory.append(newOrderHistory)
+                            }
+                        }
+                        let newOrders = Orders(order_history: self.orderHistory)
+                        self.orders.append(newOrders)
+                        DispatchQueue.main.async {
+                            self.tableView.reloadData()
                         }
                     }
-                    let newOrders = Orders(order_history: self.orderHistory)
-                    self.orders.append(newOrders)
-                    DispatchQueue.main.async {
-                        self.tableView.reloadData()
-                    }
+                } else{
+                    self.tableView.isHidden = true
+                    self.emptyImage.isHidden = false
+                    
                 }
             }else{
                 if let e = error{
@@ -62,6 +77,7 @@ class OrderHistoryViewController: UIViewController{
             }
         }
     }
+    
     
     
     
@@ -91,13 +107,16 @@ extension OrderHistoryViewController: UITableViewDataSource, UITableViewDelegate
         cell.noOrderLabel.text = orderHistory[indexPath.row].order_id
         cell.statusLabel.text = orderHistory[indexPath.row].statusFormat
         cell.totalPriceLabel.text = String("SGD \(orderHistory[indexPath.row].total_amount)")
-        index = indexPath.row
+        
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.performSegue(withIdentifier: K.orderDetail, sender: self)
         tableView.deselectRow(at: indexPath, animated: true)
+        index = indexPath.row
+        print(index)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -110,11 +129,11 @@ extension OrderHistoryViewController: UITableViewDataSource, UITableViewDelegate
     
 }
 extension Date {
-  func asString(style: DateFormatter.Style) -> String {
-    let dateFormatter = DateFormatter()
-    dateFormatter.dateStyle = style
-    return dateFormatter.string(from: self)
-  }
+    func asString(style: DateFormatter.Style) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = style
+        return dateFormatter.string(from: self)
+    }
 }
 
 
