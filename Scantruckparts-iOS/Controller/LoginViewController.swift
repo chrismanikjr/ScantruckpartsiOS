@@ -8,13 +8,18 @@
 
 import UIKit
 import Firebase
+import NVActivityIndicatorView
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController{
     
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var signUpButton: UIButton!
+    
+    let loading = NVActivityIndicatorView(frame: .zero, type: .ballSpinFadeLoader, color: .blue, padding: 0)
+  
+    var view2 =  UIView()
     
     var message = ""
     override func viewDidLoad() {
@@ -24,15 +29,19 @@ class LoginViewController: UIViewController {
         customElements()
     }
     @IBAction func loginPressed(_ sender: UIButton) {
+        startAnimation()
         let error = validateFields()
         
         if error != nil{
             message = error!
+            loading.stopAnimating()
             alertMessage(with: message)
         }else{
             if let email = emailTextField.text ,let password = passwordTextField.text{
                 Auth.auth().signIn(withEmail: email, password: password) {  authResult, error in
                     if let e = error{
+                        self.loading.stopAnimating()
+                        self.view2.isHidden = true
                         self.message = e.localizedDescription
                         self.alertMessage(with: self.message)
                     }else{
@@ -44,6 +53,26 @@ class LoginViewController: UIViewController {
         }
     }
     
+    func startAnimation(){
+        loading.translatesAutoresizingMaskIntoConstraints = false
+//        loading.backgroundColor = UIColor(red: 52, green: 0, blue: 0, alpha: 1)
+//
+//        loading.clipsToBounds = true
+//        loading.layer.cornerRadius = loading.frame.size.height/3.0
+           view2 = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height))
+        view2.backgroundColor = UIColor(red: 0.93, green: 0.94, blue: 0.95, alpha: 0.4)
+        view.addSubview(view2)
+        view.addSubview(loading)
+        
+        NSLayoutConstraint.activate([
+            loading.widthAnchor.constraint(equalToConstant: 40),
+            loading.heightAnchor.constraint(equalToConstant: 40),
+            loading.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            loading.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
+        loading.startAnimating()
+        
+    }
     
     
     //MARK: - Validate fields
@@ -69,10 +98,16 @@ class LoginViewController: UIViewController {
     func alertMessage(with message: String){
         let alert = UIAlertController(title: "Message", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+//        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
+//            <#code#>
+//        }))
         present(alert, animated: true, completion: nil)
     }
     //MARK: - Clear Field
     func clearFields(){
+        loading.stopAnimating()
+        self.view2.isHidden = true
+
         emailTextField.text = ""
         passwordTextField.text = ""
     }

@@ -9,9 +9,9 @@
 import UIKit
 import Firebase
 import FirebaseUI
+import SkeletonView
 
 class HomeViewController: UIViewController, UISearchBarDelegate {
-    
     //    let searchController = UISearchController(searchResultsController: nil)
     
     let searchController = UISearchBar()
@@ -23,32 +23,37 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
     var sku = ""
     var brandValue = ""
     
+    let user = Auth.auth().currentUser
+    static let shared = HomeViewController()
+    
     @IBOutlet weak var newProductCollection: UICollectionView!
     @IBOutlet weak var brandCollection: UICollectionView!
     
+    override func viewWillAppear(_ animated: Bool) {
+         super.viewWillAppear(animated)
+
+        
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
         // Do any additional setup after loading the view.
-        newProductCollection.register(UINib(nibName: K.collectionNewProduct, bundle: nil), forCellWithReuseIdentifier: K.collectionIdentifierNewProduct)
         
-
+        newProductCollection.register(UINib(nibName: K.collectionNewProduct, bundle: nil), forCellWithReuseIdentifier: K.collectionIdentifierNewProduct)
         newProductCollection.delegate = self
         newProductCollection.dataSource = self
-        
 
         brandCollection.register(UINib(nibName: K.collectionBrand, bundle: nil), forCellWithReuseIdentifier: K.collectionIdentifierBrand)
         brandCollection.delegate = self
         brandCollection.dataSource = self
         
-        
         setupNavBar()
-        loadNewProduct()
         loadBrand()
+        loadNewProduct()
+
         
     }
     
+    //MARK: - Load data Product Collection View
     func loadNewProduct(){
         db.collection(K.FStore.productCollection).order(by: K.FStore.Product.date).limit(to: 5).addSnapshotListener { (querySnapshot, error) in
             self.product = []
@@ -62,24 +67,22 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
                         DispatchQueue.main.async {
                             self.newProductCollection.reloadData()
                         }
-                        
                     }
                 }
             }
         }
     }
     
+    //MARK: - Load data Brand Collection View
     func loadBrand(){
         db.collection(K.FStore.brandCollection).addSnapshotListener { (querySnapshot, error) in
             self.brand = []
             if error == nil{
                 for document in querySnapshot!.documents{
                     let data = document.data()
-                    print(data)
                     if let name = data[K.FStore.Brand.brand] as? String, let img = data[K.FStore.Brand.img] as? String{
                         let newBrand = HomeBrand(brand: name, image: img)
                         self.brand.append(newBrand)
-                        
                         DispatchQueue.main.async {
                             self.brandCollection.reloadData()
                         }
@@ -89,17 +92,15 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
         }
     }
     
-    //MARK: - Download and load image from Firebase Storage
+//    //MARK: - Download and load image from Firebase Storage
+//    func loadImage(with imageChild: String) -> StorageReference{
+//        let storage = Storage.storage()
+//        let storageRef = storage.reference()
+//        let ref = storageRef.child(imageChild)
+//        return ref
+//    }
     
-    func loadImage(with imageChild: String) -> StorageReference{
-        let storage = Storage.storage()
-        let storageRef = storage.reference()
-        let ref = storageRef.child(imageChild)
-        
-        return ref
-        
-    }
-    
+    //MARK: - Custom NavigationBar
     func setupNavBar(){
         
         let icon  = UIImage(named: "ScaniaLogo")
@@ -119,6 +120,7 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
         
     }
     
+    //MARK: - Search Bar
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         performSegue(withIdentifier: K.toSearch, sender: self)
         self.searchController.endEditing(true)
@@ -137,13 +139,12 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
             let destinationVC = segue.destination as! SearchResultController
             destinationVC.searchValuee = brandValue
             destinationVC.hidesBottomBarWhenPushed = true
-
-            
         }
     }
     
 }
 
+//MARK: - Collection View Setup
 extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -156,15 +157,20 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == self.newProductCollection{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: K.collectionIdentifierNewProduct, for: indexPath) as! NewProductCollectionCell
-            cell.nameLabel.text = product[indexPath.row].name
-            
-            let refImage = loadImage(with: product[indexPath.row].image)
+            let refImage = Utilities.loadImage(with: product[indexPath.row].image)
+                //loadImage(with: product[indexPath.row].image)
             cell.productImage.sd_setImage(with: refImage)
+            cell.hideAnimation()
+            cell.nameLabel.text = product[indexPath.row].name
+
+            
+
             return cell
         } else{
             let cell2 = collectionView.dequeueReusableCell(withReuseIdentifier: K.collectionIdentifierBrand, for: indexPath) as! BrandCollectionCell
-            let refImage2 = loadImage(with: brand[indexPath.row].image)
+            let refImage2 = Utilities.loadImage(with: brand[indexPath.row].image)
             cell2.brandImage.sd_setImage(with: refImage2)
+            cell2.hideAnimation()
             return cell2
         }
     }
@@ -182,9 +188,16 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 180 , height: 180)
+        return CGSize(width: 150 , height: 170)
     }
     
     
 }
+//extension HomeViewController: SkeletonCollectionViewDataSource{
+//    func collectionSkeletonView(_ skeletonView: UICollectionView, cellIdentifierForItemAt indexPath: IndexPath) -> ReusableCellIdentifier {
+//        <#code#>
+//    }
+//
+//
+//}
 

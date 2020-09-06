@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import NVActivityIndicatorView
 
 class AccountViewController: UIViewController {
     @IBOutlet weak var editingLabel: UILabel!
@@ -19,7 +20,9 @@ class AccountViewController: UIViewController {
     @IBOutlet weak var logOutButton: UIButton!
     
     let db = Firestore.firestore()
-    let currentUser = Auth.auth().currentUser
+    let currentUser = HomeViewController.shared.user
+    
+     let loading = NVActivityIndicatorView(frame: .zero, type: .ballSpinFadeLoader, color: .blue, padding: 0)
     
     var message: String = ""
     override func viewDidLoad() {
@@ -31,17 +34,21 @@ class AccountViewController: UIViewController {
     }
     
     @IBAction func logOutPressed(_ sender: UIButton) {
-        let firebaseAuth = Auth.auth()
+        startAnimation()
         do {
-            try firebaseAuth.signOut()
+            try Auth.auth().signOut()
+            loading.stopAnimating()
             navigationController?.popToRootViewController(animated: true)
         } catch let signOutError as NSError {
+            loading.stopAnimating()
             print ("Error signing out: %@", signOutError)
         }
+
     }
     //MARK: - Load User Info
     
     func loadTextField(){
+        
         let docRef = db.collection(K.FStore.userCollection).document(currentUser!.uid)
         docRef.addSnapshotListener { (documentSnapshot, error) in
             if let document = documentSnapshot{
@@ -56,38 +63,23 @@ class AccountViewController: UIViewController {
                 }
             }
         }
-        //        db.collection(K.FStore.userCollection).addSnapshotListener { (querySnapshot, error) in
-        //            if let e = error{
-        //                self.message = "There was issue retreiving data from Firesotrel. \(e.localizedDescription)"
-        //                self.alertMessage(with: self.message)
-        //            }else{
-        //                if let snapshotDocument = querySnapshot?.documents{
-        //                    for doc in snapshotDocument{
-        //                        let data = doc.data()
-        //                        if let emailText = data[K.FStore.emailField] as? String, let fullNameText = data[K.FStore.fullNameField] as? String, let telephoneText = data[K.FStore.telephoneField] as? String{
-        //                            DispatchQueue.main.async {
-        //                                self.emailTextField.text = emailText
-        //                                self.nameTextField.text = fullNameText
-        //                                self.telephoneTextField.text = telephoneText
-        //                            }
-        //                        }
-        //                    }
-        //                }
-        //            }
-        //        }
+
     }
     
     //MARK: - Update user Info
     
     @IBAction func updatePressed(_ sender: Any) {
+        startAnimation()
         let error = validateFields()
         if error != nil{
             message = error!
+            loading.stopAnimating()
             alertMessage(with: message)
         }else{
             if let name = nameTextField.text, let telephone = telephoneTextField.text,let password = passwordTextField.text{
                 currentUser?.updatePassword(to: password, completion: { (error) in
                     if let e = error{
+                        self.loading.stopAnimating()
                         self.message = e.localizedDescription
                     }else{
                         self.db.collection(K.FStore.userCollection).document(self.currentUser!.uid).updateData(["fullName": name,"telephoneNumber": telephone]) { (error) in
@@ -99,12 +91,29 @@ class AccountViewController: UIViewController {
                                 self.alertMessage(with: self.message)
                                 self.clearFields()
                             }
+                            self.loading.stopAnimating()
                         }
                     }
                 })
             }
         }
     }
+    
+    //MARK: - Animation Loading for waiting
+    func startAnimation(){
+           
+           loading.translatesAutoresizingMaskIntoConstraints = false
+           view.addSubview(loading)
+           NSLayoutConstraint.activate([
+               
+               loading.widthAnchor.constraint(equalToConstant: 40),
+               loading.heightAnchor.constraint(equalToConstant: 40),
+               loading.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+               loading.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+           ])
+           loading.startAnimating()
+       }
+    
     //MARK: - Validate fields
     // Check the fields and validate that the data is correct. If everything is correct, this method returns nil. Otherwise, it returns the error message
     

@@ -255,14 +255,20 @@ PODS:
     - nanopb/encode (= 0.3.9011)
   - nanopb/decode (0.3.9011)
   - nanopb/encode (0.3.9011)
+  - NVActivityIndicatorView (5.0.0):
+    - NVActivityIndicatorView/Base (= 5.0.0)
+  - NVActivityIndicatorView/Base (5.0.0)
   - SDWebImage (5.8.4):
     - SDWebImage/Core (= 5.8.4)
   - SDWebImage/Core (5.8.4)
+  - SkeletonView (1.8.8)
 
 DEPENDENCIES:
   - Firebase/Auth
   - Firebase/Firestore
   - FirebaseUI/Storage
+  - NVActivityIndicatorView
+  - SkeletonView
 
 SPEC REPOS:
   trunk:
@@ -285,7 +291,9 @@ SPEC REPOS:
     - GTMSessionFetcher
     - leveldb-library
     - nanopb
+    - NVActivityIndicatorView
     - SDWebImage
+    - SkeletonView
 
 SPEC CHECKSUMS:
   abseil: 18063d773f5366ff8736a050fe035a28f635fd27
@@ -307,8 +315,10 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: cea130bbfe5a7edc8d06d3f0d17288c32ffe9925
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
+  NVActivityIndicatorView: f109ed069924ac1b4adbc1ae9cfaeac0be1d6c2c
   SDWebImage: cf6922231e95550934da2ada0f20f2becf2ceba9
+  SkeletonView: e37c282c1b228547b83daf47605f79c3aeb1df9a
 
-PODFILE CHECKSUM: 69ccacfa0910b963d10dcf41c2e4b8e6ed818ae9
+PODFILE CHECKSUM: b5ba2f398dbc5f0f932f4249dc01472d756e39d2
 
 COCOAPODS: 1.9.3

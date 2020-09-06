@@ -10,6 +10,7 @@ import UIKit
 import FirebaseStorage
 import Firebase
 import FirebaseUI
+import SkeletonView
 
 class ProductDetailController: UIViewController {
     
@@ -46,6 +47,8 @@ class ProductDetailController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.hidesBottomBarWhenPushed = true
+        startLoadingAnimation()
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -58,6 +61,7 @@ class ProductDetailController: UIViewController {
         
         setupNavBar()
         searchController.delegate = self
+        
         loadProduct()
     }
     
@@ -79,6 +83,8 @@ class ProductDetailController: UIViewController {
                             let newProd = Products(sku: skuNumber, name: name, price: price, quantity: qty, image: img, description: desc, shipping_details: self.productShip, brand: brand)
                             self.product.append(newProd)
                             DispatchQueue.main.async {
+                                self.hideLoadingAnimation()
+                                
                                 let shipping = self.product[0].shipping_details
                                 self.nameLabel.text = self.product[0].name
                                 self.priceLabel.text = "SGD \(self.product[0].price)"
@@ -134,7 +140,6 @@ class ProductDetailController: UIViewController {
         let storage = Storage.storage()
         let storageRef = storage.reference()
         let ref = storageRef.child(imageChild)
-        
         productImage.sd_setImage(with: ref)
     }
     
@@ -145,9 +150,33 @@ class ProductDetailController: UIViewController {
         quantityLabel.text = String(format: "%.0f", qtyValue)
     }
     
+    //MARK: - Loading Animation
+    func startLoadingAnimation(){
+        productImage.showAnimatedGradientSkeleton()
+        nameLabel.showAnimatedGradientSkeleton()
+        priceLabel.showAnimatedGradientSkeleton()
+        descLabel.showAnimatedGradientSkeleton()
+        weightLabel.showAnimatedGradientSkeleton()
+        lengthLabel.showAnimatedGradientSkeleton()
+        heightLabel.showAnimatedGradientSkeleton()
+        widthLabel.showAnimatedGradientSkeleton()
+        statusLabel.showAnimatedGradientSkeleton()
+        quantityLabel.showAnimatedGradientSkeleton()
+    }
+    func hideLoadingAnimation(){
+        productImage.hideSkeleton()
+        nameLabel.hideSkeleton()
+        priceLabel.hideSkeleton()
+        descLabel.hideSkeleton()
+        weightLabel.hideSkeleton()
+        lengthLabel.hideSkeleton()
+        heightLabel.hideSkeleton()
+        widthLabel.hideSkeleton()
+        statusLabel.hideSkeleton()
+        quantityLabel.hideSkeleton()
+    }
     
     //MARK: - Add Product to Cart
-    
     @IBAction func addToCartPressed(_ sender: UIButton) {
         let emailUser = Auth.auth().currentUser!.email!
         let docRef = db.collection(K.FStore.cartCollection).whereField(K.FStore.Cart.email, isEqualTo: emailUser).whereField(K.FStore.Cart.sku, isEqualTo: skuNumber!)

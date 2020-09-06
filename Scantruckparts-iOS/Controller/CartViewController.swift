@@ -21,10 +21,10 @@ class CartViewController: UIViewController {
     var cart : [Cart] = []
     var total: Double = 0.0
     let db = Firestore.firestore()
-    let currentUser = Auth.auth().currentUser
+    let currentUser = HomeViewController.shared.user
     
     var message = ""
-    var quantityValue = 0.0
+//    var quantityValue = 0.0
     var sku = ""
     
     
@@ -92,7 +92,7 @@ class CartViewController: UIViewController {
     
     
     @IBAction func checkOutPressed(_ sender: UIButton) {
-        print(total)
+        performSegue(withIdentifier: K.checkout, sender: self)
     }
     
     //MARK: - Download and load image from Firebase Storage
@@ -112,6 +112,11 @@ class CartViewController: UIViewController {
             let destinationVC = segue.destination as! ProductDetailController
             destinationVC.hidesBottomBarWhenPushed = true
             destinationVC.skuNumber = sku
+        }else{
+            let checkOutVC = segue.destination as! CheckOutAddressController
+            checkOutVC.hidesBottomBarWhenPushed = true
+            checkOutVC.cartList = cart
+            checkOutVC.total = total
         }
     }
     

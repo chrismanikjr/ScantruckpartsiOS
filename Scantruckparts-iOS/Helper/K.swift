@@ -22,6 +22,8 @@ struct K{
     static let searchProduct = "searchToProduct"
     static let cartProduct = "cartToProduct"
     
+    static let checkout = "toCheckOutAddress"
+    static let lastCheckout = "toLastCheckOut"
     
     static let cellNibCart = "CartCell"
     static let cellIdentifierCart = "CartReusableCell"
@@ -40,6 +42,9 @@ struct K{
     
     static let collectionBrand = "BrandCollectionCell"
     static let collectionIdentifierBrand = "BrandReusableCell"
+    
+    static let checkoutProduct = "CheckoutProductCell"
+    static let checkoutProductIdentifier = "CheckoutProductReusable"
     
     struct FStore{
         static let userCollection = "users"

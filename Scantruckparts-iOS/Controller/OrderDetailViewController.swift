@@ -28,12 +28,10 @@ class OrderDetailViewController: UIViewController {
     var index: Int?
     
     let db = Firestore.firestore()
-    let currentUser = Auth.auth().currentUser
-    
-    
-    var orderDetail : [OrderDetailData] = []
-    
-    
+    let currentUser = HomeViewController.shared.user
+
+//    var orderDetail : [OrderDetailData] = []
+
     var paymentData: [OrderDetailData.Payment] = []
     //    var shippingData: [OrderDetailData.Shipping] = []
     //    var trackingData: [OrderDetailData.Shipping.Tracking] = []
@@ -49,6 +47,9 @@ class OrderDetailViewController: UIViewController {
         tableProduct.dataSource = self
         tableProduct.delegate = self
         tableProduct.register(UINib(nibName: K.cellNibProductList, bundle: nil), forCellReuseIdentifier: K.cellIdentifierProductList)
+        
+        tableProduct.rowHeight = UITableView.automaticDimension
+        tableProduct.estimatedRowHeight = 600
         loadOrder()
         
         
@@ -56,7 +57,7 @@ class OrderDetailViewController: UIViewController {
     
     
     func loadOrder(){
-        orderDetail = []
+//        orderDetail = []
         //        paymentData = []
         //         shippingData = []
         //         trackingData =  []
@@ -78,10 +79,10 @@ class OrderDetailViewController: UIViewController {
                         let name = shipping[K.FStore.Orders.name] as! String
                         let address = shipping[K.FStore.Orders.address] as! String
                         let telep = shipping[K.FStore.Orders.telep] as! String
-                        let city = shipping[K.FStore.Orders.city] as! String
-                        let region = shipping[K.FStore.Orders.region] as! String
-                        let country = shipping[K.FStore.Orders.country] as! String
-                        let zip = shipping[K.FStore.Orders.zip] as! String
+//                        let city = shipping[K.FStore.Orders.city] as! String
+//                        let region = shipping[K.FStore.Orders.region] as! String
+//                        let country = shipping[K.FStore.Orders.country] as! String
+//                        let zip = shipping[K.FStore.Orders.zip] as! String
                         
 //                        let fullAdress = """
 //                        \(address), \(city), \(region), \(country)

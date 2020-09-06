@@ -8,6 +8,8 @@
 
 import UIKit
 import Firebase
+import NVActivityIndicatorView
+
 class RegisterViewController: UIViewController {
     
     @IBOutlet weak var emailTextField: UITextField!
@@ -18,6 +20,8 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var loginButton: UIButton!
     
     var message: String = ""
+    let loading = NVActivityIndicatorView(frame: .zero, type: .ballSpinFadeLoader, color: .blue, padding: 0)
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,31 +33,35 @@ class RegisterViewController: UIViewController {
     
     //MARK: - Register User
     @IBAction func registerPressed(_ sender: Any) {
+        startAnimation()
         let error = validateFields()
         if error != nil{
             message = error!
+            loading.stopAnimating()
             alertMessage(with: message)
-        }
-        else{
+        } else {
             if let email = emailTextField.text, let name =  nameTextField.text, let telephone = telephoneTextField.text, let password = passwordTextField.text{
                 Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
                     if let e = error{
                         self.message = e.localizedDescription
+                        self.loading.stopAnimating()
                         self.alertMessage(with: self.message)
                     }else{
                         let userUID = authResult!.user.uid
                         let db = Firestore.firestore()
-                        db.collection(K.FStore.userCollection).document(userUID).setData(["email": email,
-                                                                                          "userUID": authResult!.user.uid,
-                                                                                          "fullName": name,
-                                                                                          "telephoneNumber": telephone]) { (error) in
-                                                                                            if error != nil{
-                                                                                                self.message =  error!.localizedDescription
-                                                                                                self.alertMessage(with: self.message)
-                                                                                            }
+                        db.collection(K.FStore.userCollection)
+                            .document(userUID).setData([
+                                "email": email,
+                                "userUID": authResult!.user.uid,
+                                "fullName": name,
+                                "telephoneNumber": telephone]) { (error) in
+                                    if error != nil{
+                                        self.message =  error!.localizedDescription
+                                        self.alertMessage(with: self.message)
+                                    }
                         }
+                        self.clearFields()
                     }
-                    self.clearFields()
                     self.performSegue(withIdentifier: K.registerSegue, sender: self)
                 }
             }
@@ -65,6 +73,21 @@ class RegisterViewController: UIViewController {
         clearFields()
         navigationController?.popToRootViewController(animated: true)
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    //MARK: - Animation Loading for waiting
+    func startAnimation(){
+        
+        loading.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(loading)
+        NSLayoutConstraint.activate([
+            
+            loading.widthAnchor.constraint(equalToConstant: 40),
+            loading.heightAnchor.constraint(equalToConstant: 40),
+            loading.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            loading.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
+        loading.startAnimating()
     }
     
     //MARK: - Validate fields
@@ -95,6 +118,7 @@ class RegisterViewController: UIViewController {
     //MARK: - Clear text field()
     
     func clearFields(){
+        loading.stopAnimating()
         emailTextField.text = ""
         passwordTextField.text = ""
         telephoneTextField.text = ""

@@ -1,25 +1,22 @@
 //
-//  ProductListCell.swift
+//  CheckoutProductCell.swift
 //  Scantruckparts-iOS
 //
-//  Created by Chris Manik on 7/9/20.
+//  Created by Chris Manik on 7/29/20.
 //  Copyright © 2020 scantruck. All rights reserved.
 //
 
 import UIKit
 
-class ProductListCell: UITableViewCell {
+class CheckoutProductCell: UITableViewCell {
 
     @IBOutlet weak var productImage: UIImageView!
-    @IBOutlet weak var productNameLabel: UILabel!
-    @IBOutlet weak var quantityLabel: UILabel!
+    @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
-    @IBOutlet weak var totalHarga: UILabel!
+    @IBOutlet weak var qtyLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        
         // Initialization code
     }
 

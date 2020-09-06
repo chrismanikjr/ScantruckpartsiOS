@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import FirebaseStorage
 
 class Utilities {
     
@@ -16,7 +17,7 @@ class Utilities {
         //Create the bottom line
         let bottomLine = CALayer()
         
-        bottomLine.frame = CGRect(x: 0, y: textField.frame.height-2, width: textField.frame.width, height: 2)
+        bottomLine.frame = CGRect(x: 0, y: textField.frame.height - 2, width: textField.frame.width, height: 2)
         bottomLine.backgroundColor = UIColor.init(red: 223/255, green: 230/255, blue: 233/255, alpha: 1).cgColor
         
         // Font
@@ -33,7 +34,7 @@ class Utilities {
     
     static func customButton(_ button: UIButton){
         button.clipsToBounds = true
-        button.layer.cornerRadius = button.frame.size.height/2.0
+        button.layer.cornerRadius = button.frame.size.height/5.0   
         button.backgroundColor = UIColor.init(red: 243/255, green: 175/255, blue: 34/255, alpha: 1)
         button.titleLabel?.font = UIFont(name: "Times New Roman", size: 20)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
@@ -54,6 +55,14 @@ class Utilities {
         let passwordTest = NSPredicate(format: "SELF MATCHES %@", "^(?=.*[a-z])(?=.*[$@$#!%*?&])[A-Za-z\\d$@$#!%*?&]{8,}")
         return passwordTest.evaluate(with: password)
     }
+    
+    static func loadImage(with imageChild: String) -> StorageReference{
+        let storage = Storage.storage()
+        let storageRef = storage.reference()
+        let ref = storageRef.child(imageChild)
+        return ref
+    }
+    
     
     
 }

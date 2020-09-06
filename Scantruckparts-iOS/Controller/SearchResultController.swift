@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import SkeletonView
 
 class SearchResultController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
@@ -16,7 +17,6 @@ class SearchResultController: UIViewController {
     var searchValuee: String?
     
     
-    let db = Firestore.firestore()
     var searchData: [SearchData] = []
     
     var sku = ""
@@ -37,10 +37,13 @@ class SearchResultController: UIViewController {
         tableView.delegate = self
         tableView.register(UINib(nibName: K.cellSearchResult, bundle: nil), forCellReuseIdentifier: K.cellIdentifierSearchResult)
         setupNavBar()
-           loadSearching()
+        loadSearching()
+
     }
     
     func loadSearching(){
+        let db = Firestore.firestore()
+
         db.collection(K.FStore.productCollection).whereField("brand", isEqualTo: searchValuee!).addSnapshotListener { (querySnapshot, error) in
             self.searchData = []
             if error == nil{
@@ -94,26 +97,37 @@ class SearchResultController: UIViewController {
         searchController.delegate = self
         searchController.text = searchValuee
         view.backgroundColor = .white
+        
+//        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(backToHome))
     }
+//    @objc func backToHome(){
+//        navigationController?.popToRootViewController(animated: true)
+//    }
     
     
 }
+
+
 extension SearchResultController: UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return searchData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
         let cell = tableView.dequeueReusableCell(withIdentifier: K.cellIdentifierSearchResult, for: indexPath) as! SearchResultCell
-        
+        cell.hideAnimation()
+        let refImage = loadImage(with: searchData[indexPath.row].image)
+        cell.productImage.sd_setImage(with: refImage)
+        cell.accessoryType = .disclosureIndicator
+
         cell.nameLabel.text = searchData[indexPath.row].name
         cell.descLabel.text = searchData[indexPath.row].desc
         cell.priceLabel.text = ("SGD \(searchData[indexPath.row].price)")
         
-        let refImage = loadImage(with: searchData[indexPath.row].image)
-        cell.productImage.sd_setImage(with: refImage)
-        
+
         return cell
+
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         sku = searchData[indexPath.row].sku

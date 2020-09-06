@@ -15,7 +15,7 @@ class OrderHistoryViewController: UIViewController{
     @IBOutlet weak var emptyImage: UIImageView!
     
     let db = Firestore.firestore()
-    let currentUser = Auth.auth().currentUser
+    let currentUser = HomeViewController.shared.user
     
     var orderHistory : [Orders.OrderHistory] = []
     var orders :[Orders] = []

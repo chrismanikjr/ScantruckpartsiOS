@@ -9,5 +9,8 @@ target 'Scantruckparts-iOS' do
     pod 'Firebase/Auth'
     pod 'Firebase/Firestore'
     pod 'FirebaseUI/Storage'
+    pod 'NVActivityIndicatorView'
+    pod 'SkeletonView'
+
 
 end

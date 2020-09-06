@@ -19,13 +19,20 @@ class SearchResultCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        productImage.showAnimatedGradientSkeleton()
+        [nameLabel, descLabel, priceLabel].forEach { $0?.showAnimatedGradientSkeleton()}
         // Initialization code
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    
+    func hideAnimation(){
+        productImage.hideSkeleton()
+        [nameLabel, descLabel, priceLabel].forEach { $0?.hideSkeleton()}
     }
+//
+//    override func setSelected(_ selected: Bool, animated: Bool) {
+//        super.setSelected(selected, animated: animated)
+//
+//        // Configure the view for the selected state
+//    }
     
 }

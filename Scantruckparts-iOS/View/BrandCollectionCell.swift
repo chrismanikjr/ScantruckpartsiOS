@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SkeletonView
 
 class BrandCollectionCell: UICollectionViewCell {
 
@@ -15,8 +16,12 @@ class BrandCollectionCell: UICollectionViewCell {
         super.awakeFromNib()
         
         brandImage.contentMode = .scaleAspectFit
+        brandImage.showAnimatedGradientSkeleton()
         
         // Initialization code
+    }
+    func hideAnimation(){
+        brandImage.hideSkeleton()
     }
 
 }

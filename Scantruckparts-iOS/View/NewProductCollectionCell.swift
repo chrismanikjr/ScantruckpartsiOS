@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import SkeletonView
 class NewProductCollectionCell: UICollectionViewCell {
 
     @IBOutlet weak var productImage: UIImageView!
@@ -15,10 +15,13 @@ class NewProductCollectionCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-
-        // Initialization code
-
+        productImage.showAnimatedGradientSkeleton()
+        nameLabel.showAnimatedGradientSkeleton()
+    }
+//
+    func hideAnimation(){
+        productImage.hideSkeleton()
+        nameLabel.hideSkeleton()
     }
     
     
