@@ -15,20 +15,24 @@ class LastCheckOutController: UIViewController {
     @IBOutlet weak var paymentTextField: UITextField!
     
     var cartList : [Cart] = []
-    let courierList = ["T&T Express","T& Economy Express","Self Pickup"]
-    let paymentList = ["Credit/Debit Card", "Bank Transfer"]
+    private let courierList = ["T&T Express","T& Economy Express","Self Pickup"]
+    private let paymentList = ["Credit/Debit Card", "Bank Transfer"]
     
-    var index = 0
-    var indexPay = 0
+    private var index = 0
+    private var indexPay = 0
     
-    var courierPicker = UIPickerView()
-    var paymentPicker = UIPickerView()
+    private var courierPicker = UIPickerView()
+    private var paymentPicker = UIPickerView()
+    private var view2 =  UIView()
+
+    
     
     var total: Double = 0.0
-    let db = Firestore.firestore()
+    private let db = Firestore.firestore()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.title = "Delivery and Payment"
         customElements()
         tableView.dataSource = self
         tableView.delegate = self
@@ -111,12 +115,14 @@ extension LastCheckOutController: UITableViewDataSource, UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: K.checkoutProductIdentifier, for: indexPath) as! CheckoutProductCell
+        cell.hideAnimation()
         cell.nameLabel.text = cartList[indexPath.row].name
         cell.priceLabel.text = String("SGD \(cartList[indexPath.row].price)")
         cell.qtyLabel.text = String(cartList[indexPath.row].quantity)
         
         let refImage = loadImage(with: cartList[indexPath.row].image)
         cell.productImage.sd_setImage(with: refImage)
+        
         return cell
     }
 }

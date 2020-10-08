@@ -43,7 +43,7 @@ class OrderDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        navigationItem.title = "Order Detail"
         tableProduct.dataSource = self
         tableProduct.delegate = self
         tableProduct.register(UINib(nibName: K.cellNibProductList, bundle: nil), forCellReuseIdentifier: K.cellIdentifierProductList)
@@ -62,10 +62,7 @@ class OrderDetailViewController: UIViewController {
         //         shippingData = []
         //         trackingData =  []
         productData = []
-        guard let userUID = currentUser?.uid else{
-            return
-        }
-        let orderHistoryRef = db.collection(K.FStore.orderCollection).document(userUID)
+        let orderHistoryRef = db.collection(K.FStore.orderCollection).document(currentUser.uid)
         orderHistoryRef.addSnapshotListener { (documentSnapshot, error) in
             if let document = documentSnapshot{
                 if let orderData = document.data()?[K.FStore.Orders.orderHistory] as? [[String:Any]]{
@@ -93,15 +90,15 @@ class OrderDetailViewController: UIViewController {
                         var trackingNum = ""
                         var typeDelivery = ""
                         if let tracking = shipping[K.FStore.Orders.tracking] as? [String:Any]{
-                            let estimated : Timestamp = tracking[K.FStore.Orders.esti] as! Timestamp
-                            let estiValue = estimated.dateValue()
+//                            let estimated : Timestamp = tracking[K.FStore.Orders.esti] as! Timestamp
+//                            let estiValue = estimated.dateValue()
                             let trackNumber = tracking[K.FStore.Orders.trackNumber] as! String
                             let type = tracking[K.FStore.Orders.type] as! String
-                            let status  = tracking[K.FStore.Orders.status] as! String
+//                            let status  = tracking[K.FStore.Orders.status] as! String
                             
                             typeDelivery = type
                             trackingNum = trackNumber
-                            let newTrackingData = OrderDetailData.Shipping.Tracking(tracking_number: trackNumber, type_delivery: type, estimated_delivery: estiValue, status_order: status)
+//                            let newTrackingData = OrderDetailData.Shipping.Tracking(tracking_number: trackNumber, type_delivery: type, estimated_delivery: estiValue, status_order: status)
                             //                            self.trackingData.append(newTrackingData)
                             
                         }

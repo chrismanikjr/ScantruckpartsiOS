@@ -27,6 +27,7 @@ class SearchResultController: UIViewController {
         super.viewWillAppear(animated)
         notFoundImage.isHidden = true
         tableView.isHidden = true
+        loadSearching()
     }
     
     override func viewDidLoad() {

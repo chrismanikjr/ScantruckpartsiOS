@@ -9,8 +9,6 @@
 import Foundation
 
 struct Cart{
-    
-
     let sku: String
     let name: String
     let image: String
@@ -21,7 +19,5 @@ struct Cart{
     var totalPrice: Double{
         return price * Double(quantity)
     }
-    
-    
 }
 

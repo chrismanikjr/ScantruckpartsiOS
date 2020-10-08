@@ -14,13 +14,12 @@ class OrderHistoryViewController: UIViewController{
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var emptyImage: UIImageView!
     
-    let db = Firestore.firestore()
-    let currentUser = HomeViewController.shared.user
+    private let currentUser = HomeViewController.shared.user
     
-    var orderHistory : [Orders.OrderHistory] = []
-    var orders :[Orders] = []
-    var message = ""
-    var index = 1
+    private var orderHistory : [Orders.OrderHistory] = []
+    private var orders :[Orders] = []
+    private var message = ""
+    private var index = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,15 +30,14 @@ class OrderHistoryViewController: UIViewController{
         loadOrder()
         
         emptyImage.isHidden = true
-        
     }
     
     func loadOrder(){
+        let db = Firestore.firestore()
+
         orderHistory = []
         orders = []
-        guard let userUID = currentUser?.uid else{
-            return
-        }
+        let userUID = currentUser.uid
         let orderHistoryRef = db.collection(K.FStore.orderCollection).document(userUID)
         orderHistoryRef.addSnapshotListener { (documentSnapshot, error) in
             if error == nil{
@@ -77,11 +75,6 @@ class OrderHistoryViewController: UIViewController{
             }
         }
     }
-    
-    
-    
-    
-    
     
     //MARK: - Message Alert Controller
     func alertMessage(with message: String){

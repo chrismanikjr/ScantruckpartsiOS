@@ -54,7 +54,7 @@ class SearchController: UIViewController, UISearchBarDelegate {
         }
     }
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        
+
         navigationController?.popViewController(animated: true)
     }
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SkeletonView
 
 class CheckoutProductCell: UITableViewCell {
 
@@ -18,12 +19,23 @@ class CheckoutProductCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        productImage.showAnimatedGradientSkeleton()
+        nameLabel.showAnimatedGradientSkeleton()
+        priceLabel.showAnimatedGradientSkeleton()
+        qtyLabel.showAnimatedGradientSkeleton()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    func hideAnimation(){
+        productImage.hideSkeleton()
+        nameLabel.hideSkeleton()
+        priceLabel.hideSkeleton()
+        qtyLabel.hideSkeleton()
     }
     
 }

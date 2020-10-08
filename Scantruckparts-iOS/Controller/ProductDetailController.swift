@@ -11,6 +11,7 @@ import FirebaseStorage
 import Firebase
 import FirebaseUI
 import SkeletonView
+import NVActivityIndicatorView
 
 class ProductDetailController: UIViewController {
     
@@ -29,25 +30,30 @@ class ProductDetailController: UIViewController {
     @IBOutlet weak var stepper: UIStepper!
     @IBOutlet weak var statusLabel: UILabel!
     
-    let db = Firestore.firestore()
+    @IBOutlet weak var addCart: UIButton!
+    
+    
+    private let db = Firestore.firestore()
     var searchController = UISearchBar()
     
+    private let loading = NVActivityIndicatorView(frame: .zero, type: .ballSpinFadeLoader, color: .blue, padding: 0)
+    private var view2 = UIView()
+    
     var skuNumber: String?
-    var product: [Products] = []
-    var productShip : [Products.ShippingDetails] = []
+    private var product: [Products] = []
+    private var productShip : [Products.ShippingDetails] = []
     
-    var qtyValue = 1.0
-    var qtyMax = 1.0
+    private var qtyValue: Double = 1.0
+    private var qtyMax: Double = 1.0
     
-    var priceValue = 0.0
-    var imagePath = ""
+    private var priceValue: Double = 0.0
+    private var imagePath = ""
     
-    var message = ""
-    
+    private var message = ""
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.hidesBottomBarWhenPushed = true
-        startLoadingAnimation()
         
     }
     
@@ -60,11 +66,14 @@ class ProductDetailController: UIViewController {
         super.viewDidLoad()
         
         setupNavBar()
+        startLoadingAnimation()
         searchController.delegate = self
         
         loadProduct()
+//        disableButton()
     }
     
+    //MARK: - Take Product Detail from Product Collection
     func loadProduct(){
         let cartRef = db.collection(K.FStore.productCollection).document(skuNumber!)
         cartRef.getDocument { (documentSnapshot, error) in
@@ -83,6 +92,7 @@ class ProductDetailController: UIViewController {
                             let newProd = Products(sku: skuNumber, name: name, price: price, quantity: qty, image: img, description: desc, shipping_details: self.productShip, brand: brand)
                             self.product.append(newProd)
                             DispatchQueue.main.async {
+                                
                                 self.hideLoadingAnimation()
                                 
                                 let shipping = self.product[0].shipping_details
@@ -100,13 +110,14 @@ class ProductDetailController: UIViewController {
                                 var status: String{
                                     let qtyProd = self.product[0].quantity
                                     switch qtyProd {
-                                    case _ where qtyProd < 1:
-                                        return "No Stock"
-                                    default:
+                                    case _ where qtyProd > 0:
                                         return "Available"
+                                    default:
+                                        return "No Stock"
                                     }
                                 }
-                                self.statusLabel.text = status
+                                self.checkStatusStock(status)
+                                
                                 self.qtyMax = Double(self.product[0].quantity)
                                 self.imagePath = self.product[0].image
                                 self.loadImage(with: self.imagePath)
@@ -116,9 +127,8 @@ class ProductDetailController: UIViewController {
                 }
             }
         }
-        
     }
-    
+
     func setupNavBar(){
         navigationItem.titleView = searchController
         navigationItem.backBarButtonItem = UIBarButtonItem(
@@ -160,7 +170,7 @@ class ProductDetailController: UIViewController {
         lengthLabel.showAnimatedGradientSkeleton()
         heightLabel.showAnimatedGradientSkeleton()
         widthLabel.showAnimatedGradientSkeleton()
-        statusLabel.showAnimatedGradientSkeleton()
+        statusLabel.showAnimatedGradientSkeleton(usingGradient: SkeletonGradient(baseColor: UIColor(named: "Color-Orange")!))
         quantityLabel.showAnimatedGradientSkeleton()
     }
     func hideLoadingAnimation(){
@@ -175,9 +185,41 @@ class ProductDetailController: UIViewController {
         statusLabel.hideSkeleton()
         quantityLabel.hideSkeleton()
     }
-    
+
+    func startAnimationLoading(){
+        loading.translatesAutoresizingMaskIntoConstraints = false
+        view2 = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height))
+        view2.backgroundColor = UIColor(red: 0.93, green: 0.94, blue: 0.95, alpha: 0.4)
+        view.addSubview(view2)
+        view.addSubview(loading)
+        
+        NSLayoutConstraint.activate([
+            loading.widthAnchor.constraint(equalToConstant: 40),
+            loading.heightAnchor.constraint(equalToConstant: 40),
+            loading.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            loading.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
+        loading.startAnimating()
+    }
+    //MARK: - Check stock Status
+
+    func checkStatusStock(_ status: String){
+        switch status {
+        case "Available":
+            addCart.isEnabled = true
+            stepper.isEnabled = true
+            statusLabel.text = status
+            statusLabel.textColor = #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)
+        default:
+            addCart.isEnabled = false
+            stepper.isEnabled = false
+            statusLabel.text = status
+            statusLabel.textColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+        }
+    }
     //MARK: - Add Product to Cart
     @IBAction func addToCartPressed(_ sender: UIButton) {
+        startAnimationLoading()
         let emailUser = Auth.auth().currentUser!.email!
         let docRef = db.collection(K.FStore.cartCollection).whereField(K.FStore.Cart.email, isEqualTo: emailUser).whereField(K.FStore.Cart.sku, isEqualTo: skuNumber!)
         
@@ -210,6 +252,7 @@ class ProductDetailController: UIViewController {
                     let id = doc.documentID
                     if let quantity = data[K.FStore.Cart.quantity] as? Double{
                         self.db.collection(K.FStore.cartCollection).document(id).updateData([K.FStore.Cart.quantity : quantity + self.qtyValue]) { (error) in
+                            self.loading.stopAnimating()
                             if let e = error{
                                 self.message = e.localizedDescription
                                 self.alertMessage(with: self.message)
@@ -219,19 +262,15 @@ class ProductDetailController: UIViewController {
                             }
                         }
                     }
-                    
-                    
                 }
             }
         }
-        
-        
-        
     }
-    
     
     //MARK: - Message Alert Controller
     func alertMessage(with message: String){
+        loading.stopAnimating()
+        view2.isHidden = true
         let alert = UIAlertController(title: "Message", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
@@ -241,7 +280,6 @@ class ProductDetailController: UIViewController {
 extension ProductDetailController: UISearchBarDelegate{
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         performSegue(withIdentifier: "productToSearch", sender: self)
-        
     }
 }
 

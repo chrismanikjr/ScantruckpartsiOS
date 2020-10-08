@@ -19,10 +19,10 @@ class AccountViewController: UIViewController {
     @IBOutlet weak var updateButton: UIButton!
     @IBOutlet weak var logOutButton: UIButton!
     
-    let db = Firestore.firestore()
-    let currentUser = HomeViewController.shared.user
     
-     let loading = NVActivityIndicatorView(frame: .zero, type: .ballSpinFadeLoader, color: .blue, padding: 0)
+    let currentUser = HomeViewController.shared.user
+    private  let db = Firestore.firestore()
+    let loading = NVActivityIndicatorView(frame: .zero, type: .ballSpinFadeLoader, color: .blue, padding: 0)
     
     var message: String = ""
     override func viewDidLoad() {
@@ -48,8 +48,8 @@ class AccountViewController: UIViewController {
     //MARK: - Load User Info
     
     func loadTextField(){
-        
-        let docRef = db.collection(K.FStore.userCollection).document(currentUser!.uid)
+       
+        let docRef = db.collection(K.FStore.userCollection).document(currentUser.uid)
         docRef.addSnapshotListener { (documentSnapshot, error) in
             if let document = documentSnapshot{
                 if let data = document.data(){
@@ -77,12 +77,12 @@ class AccountViewController: UIViewController {
             alertMessage(with: message)
         }else{
             if let name = nameTextField.text, let telephone = telephoneTextField.text,let password = passwordTextField.text{
-                currentUser?.updatePassword(to: password, completion: { (error) in
+                currentUser.updatePassword(to: password, completion: { (error) in
                     if let e = error{
                         self.loading.stopAnimating()
                         self.message = e.localizedDescription
                     }else{
-                        self.db.collection(K.FStore.userCollection).document(self.currentUser!.uid).updateData(["fullName": name,"telephoneNumber": telephone]) { (error) in
+                        self.db.collection(K.FStore.userCollection).document(self.currentUser.uid).updateData(["fullName": name,"telephoneNumber": telephone]) { (error) in
                             if let e = error {
                                 self.message = e.localizedDescription
                                 self.alertMessage(with: self.message)
@@ -105,7 +105,7 @@ class AccountViewController: UIViewController {
            loading.translatesAutoresizingMaskIntoConstraints = false
            view.addSubview(loading)
            NSLayoutConstraint.activate([
-               
+
                loading.widthAnchor.constraint(equalToConstant: 40),
                loading.heightAnchor.constraint(equalToConstant: 40),
                loading.centerYAnchor.constraint(equalTo: view.centerYAnchor),
@@ -156,4 +156,11 @@ class AccountViewController: UIViewController {
         Utilities.plainButton(logOutButton)
     }
     
+}
+
+extension AccountViewController: UITextFieldDelegate{
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    } 
 }

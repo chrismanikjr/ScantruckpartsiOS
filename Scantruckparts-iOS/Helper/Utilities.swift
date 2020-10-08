@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import FirebaseStorage
+import NVActivityIndicatorView
 
 class Utilities {
     
@@ -62,6 +63,27 @@ class Utilities {
         let ref = storageRef.child(imageChild)
         return ref
     }
+    
+//    static func startAnimation(){
+//        loading.translatesAutoresizingMaskIntoConstraints = false
+////        loading.backgroundColor = UIColor(red: 52, green: 0, blue: 0, alpha: 1)
+////
+////        loading.clipsToBounds = true
+////        loading.layer.cornerRadius = loading.frame.size.height/3.0
+//           view2 = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height))
+//        view2.backgroundColor = UIColor(red: 0.93, green: 0.94, blue: 0.95, alpha: 0.4)
+//        view.addSubview(view2)
+//        view.addSubview(loading)
+//        
+//        NSLayoutConstraint.activate([
+//            loading.widthAnchor.constraint(equalToConstant: 40),
+//            loading.heightAnchor.constraint(equalToConstant: 40),
+//            loading.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+//            loading.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+//        ])
+//        loading.startAnimating()
+//        
+//    }
     
     
     

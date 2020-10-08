@@ -16,14 +16,16 @@ class LoginViewController: UIViewController{
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var signUpButton: UIButton!
+    @IBOutlet weak var stackView: UIStackView!
     
-    let loading = NVActivityIndicatorView(frame: .zero, type: .ballSpinFadeLoader, color: .blue, padding: 0)
+    private let loading = NVActivityIndicatorView(frame: .zero, type: .ballSpinFadeLoader, color: .blue, padding: 0)
   
-    var view2 =  UIView()
+    private var view2 =  UIView()
     
     var message = ""
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
         // Do any additional setup after loading the view.
         customElements()
@@ -98,9 +100,6 @@ class LoginViewController: UIViewController{
     func alertMessage(with message: String){
         let alert = UIAlertController(title: "Message", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-//        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) in
-//            <#code#>
-//        }))
         present(alert, animated: true, completion: nil)
     }
     //MARK: - Clear Field
@@ -117,8 +116,25 @@ class LoginViewController: UIViewController{
         Utilities.styleTextField(passwordTextField)
         Utilities.customButton(loginButton)
         Utilities.plainButton(signUpButton)
+//        stackView.clipsToBounds = true
+//        stackView.layer.cornerRadius = stackView.frame.size.height/20.0
     }
     
     
 }
 
+
+
+//MARK: - Text Field Delegate
+extension LoginViewController: UITextFieldDelegate{
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == emailTextField{
+            emailTextField.resignFirstResponder()
+            passwordTextField.becomeFirstResponder()
+        }else if textField == passwordTextField{
+            passwordTextField.resignFirstResponder()
+            loginButton.becomeFirstResponder()
+        }
+        return true
+    }
+}

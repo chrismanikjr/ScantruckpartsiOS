@@ -18,8 +18,8 @@ struct OrderDetailData{
     let product: [Product]
     let shipping: [Shipping]
     struct Payment {
-         let method: String
-           let transaction_id: String
+        let method: String
+        let transaction_id: String
     }
     
     struct Product {
@@ -29,7 +29,7 @@ struct OrderDetailData{
         let sku: String
         let name: String
     }
-   
+    
     struct Shipping {
         let name: String
         let telephone_number: String
@@ -48,9 +48,7 @@ struct OrderDetailData{
             
         }
     }
-    
-    
-    
+
     var statusFormat: String{
         switch status_order {
         case "ondelivery":

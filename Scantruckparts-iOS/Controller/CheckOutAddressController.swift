@@ -30,6 +30,7 @@ class CheckOutAddressController: UIViewController {
     
     
     override func viewDidLoad() {
+        navigationItem.title = "Address"
         super.viewDidLoad()
         customElemets()
         
@@ -84,28 +85,27 @@ class CheckOutAddressController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
+    
 }
 extension CheckOutAddressController: UITableViewDataSource, UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return cartList.count
     }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: K.checkoutProductIdentifier, for: indexPath) as! CheckoutProductCell
+        let refImage = loadImage(with: cartList[indexPath.row].image)
+        cell.hideAnimation()
+
+        cell.productImage.sd_setImage(with: refImage)
+    
         cell.nameLabel.text = cartList[indexPath.row].name
         cell.priceLabel.text = String("SGD \(cartList[indexPath.row].price)")
         cell.qtyLabel.text = String(cartList[indexPath.row].quantity)
         
-        let refImage = loadImage(with: cartList[indexPath.row].image)
-        cell.productImage.sd_setImage(with: refImage)
-        
         return cell
     }
-    
-    
-    
-    
 }
+
 
 

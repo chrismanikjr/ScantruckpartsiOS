@@ -31,6 +31,11 @@ class CartCell: UITableViewCell {
     var priceValue = 0.0 
     override func awakeFromNib() {
         super.awakeFromNib()
+        productImage.showAnimatedGradientSkeleton()
+        productLabel.showAnimatedGradientSkeleton()
+        priceLabel.showAnimatedGradientSkeleton()
+        quantityLabel.showAnimatedGradientSkeleton()
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -48,6 +53,13 @@ class CartCell: UITableViewCell {
         let quantity = Int(quantityValue)
         quantityLabel.text = String(format: "%.0f", quantityValue)
         delegate?.updateQty(index: index!.row, qty: quantity)
+    }
+    
+    func hideAnimation(){
+        productImage.hideSkeleton()
+        productLabel.hideSkeleton()
+        priceLabel.hideSkeleton()
+        quantityLabel.hideSkeleton()
     }
     
 }

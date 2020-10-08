@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import NVActivityIndicatorView
 
 class CartViewController: UIViewController {
     
@@ -20,9 +21,12 @@ class CartViewController: UIViewController {
     
     var cart : [Cart] = []
     var total: Double = 0.0
-    let db = Firestore.firestore()
+    private let db = Firestore.firestore()
     let currentUser = HomeViewController.shared.user
     
+    private var timer: Timer?
+    private var loading = NVActivityIndicatorView(frame: .zero, type: .ballSpinFadeLoader, color: .blue, padding: 0)
+    private var view2 = UIView()
     var message = ""
 //    var quantityValue = 0.0
     var sku = ""
@@ -49,7 +53,9 @@ class CartViewController: UIViewController {
     }
     
     func loadProduct(){
-        guard let email = currentUser?.email else{
+        guard let email = currentUser.email else{
+            message = "Error to load current user's email"
+            alertMessage(with: message)
             return
         }
         db.collection(K.FStore.cartCollection).whereField("email", isEqualTo: email).order(by: K.FStore.Cart.date).addSnapshotListener { (querySnapshot, error) in
@@ -92,7 +98,12 @@ class CartViewController: UIViewController {
     
     
     @IBAction func checkOutPressed(_ sender: UIButton) {
-        performSegue(withIdentifier: K.checkout, sender: self)
+        startLoadingAnimation()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.loading.stopAnimating()
+            self.view2.isHidden = true
+            self.performSegue(withIdentifier: K.checkout, sender: self)
+        }
     }
     
     //MARK: - Download and load image from Firebase Storage
@@ -128,6 +139,29 @@ class CartViewController: UIViewController {
     }
     
     
+    //MARK: - Animation Loading
+
+    func startLoadingAnimation(){
+        loading.translatesAutoresizingMaskIntoConstraints = false
+//        loading.backgroundColor = UIColor(red: 52, green: 0, blue: 0, alpha: 1)
+//
+//        loading.clipsToBounds = true
+//        loading.layer.cornerRadius = loading.frame.size.height/3.0
+           view2 = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height))
+        view2.backgroundColor = UIColor(red: 0.93, green: 0.94, blue: 0.95, alpha: 0.4)
+        view.addSubview(view2)
+        view.addSubview(loading)
+        
+        NSLayoutConstraint.activate([
+            loading.widthAnchor.constraint(equalToConstant: 40),
+            loading.heightAnchor.constraint(equalToConstant: 40),
+            loading.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            loading.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
+        loading.startAnimating()
+        
+    }
+    
 }
 
 
@@ -141,6 +175,10 @@ extension CartViewController: UITableViewDataSource, UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: K.cellIdentifierCart, for: indexPath) as! CartCell
+        let refImage = loadImage(with: cart[indexPath.row].image)
+        cell.productImage.sd_setImage(with: refImage)
+        
+        cell.hideAnimation()
         cell.productLabel.text = cart[indexPath.row].name
         cell.priceLabel.text = String("SGD \(cart[indexPath.row].price)")
         cell.quantityLabel.text = String(cart[indexPath.row].quantity)
@@ -148,8 +186,7 @@ extension CartViewController: UITableViewDataSource, UITableViewDelegate{
         cell.index = indexPath
         cell.delegate = self
         
-        let refImage = loadImage(with: cart[indexPath.row].image)
-        cell.productImage.sd_setImage(with: refImage)
+        
         
         return cell
     }
